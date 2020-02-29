@@ -1,0 +1,32 @@
+<%= form_with(model: product_variant, local: true) do |form| %>
+  <% if product_variant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product_variant.errors.count, "error") %> prohibited this product_variant from being saved:</h2>
+
+      <ul>
+      <% product_variant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :color %>
+    <%= form.text_field :color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :size %>
+    <%= form.text_field :size %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product_id %>
+    <%= form.text_field :product_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

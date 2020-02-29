@@ -1,0 +1,58 @@
+<%= form_for @product do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="field">
+
+    <%= form.fields_for :product_variants do |f| %>
+      <%= render 'product_variant_fields', f: f %>
+    <% end %>
+  <%= link_to_add_fields "Add Variant", form, :product_variants %>
+   
+  </div>
+
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script>
+
+$('form').on('click', '.remove-fields', function(event) {
+  console.log('clicked')
+    $(this).prev('input[type=hidden]').val('1');
+    $(this).closest('fieldset').hide();
+    return event.preventDefault();
+  });
+
+$('form').on('click', '.add_fields', function(event) {
+    console.log('clicked!')
+     var regexp, time;
+     time = new Date().getTime();
+     regexp = new RegExp($(this).data('id'), 'g');
+     $(this).before($(this).data('fields').replace(regexp, time));
+     return event.preventDefault();
+    });
+</script>
